@@ -94,7 +94,7 @@ class CKernel(Kernel):
                      'mimetype': 'text/x-csrc',
                      'file_extension': '.c'}
     banner = "C kernel.\n" \
-             "Uses gcc, compiles in C11, and creates source code files and executables in temporary folder.\n"
+             "Uses g++, compiles in C11, and creates source code files and executables in temporary folder.\n"
 
     main_head = "#include <stdio.h>\n" \
             "#include <math.h>\n" \
@@ -116,7 +116,7 @@ class CKernel(Kernel):
         self.master_path = mastertemp[1]
         self.resDir = path.join(path.dirname(path.realpath(__file__)), 'resources')
         filepath = path.join(self.resDir, 'master.c')
-        subprocess.call(['gcc', filepath, '-std=c11', '-rdynamic', '-ldl', '-o', self.master_path])
+        subprocess.call(['g++', filepath, '--std=c++17', '-rdynamic', '-ldl', '-o', self.master_path])
 
     def cleanup_files(self):
         """Remove all the temporary files created by the kernel"""
@@ -151,12 +151,12 @@ class CKernel(Kernel):
                                   self._write_to_stderr,
                                   self._read_from_stdin)
 
-    def compile_with_gcc(self, source_filename, binary_filename, cflags=None, ldflags=None):
+    def compile_with_gplusplus(self, source_filename, binary_filename, cflags=None, ldflags=None):
         # cflags = ['-std=c89', '-pedantic', '-fPIC', '-shared', '-rdynamic'] + cflags
         # cflags = ['-std=c99', '-Wdeclaration-after-statement', '-Wvla', '-fPIC', '-shared', '-rdynamic'] + cflags
         # cflags = ['-std=iso9899:199409', '-pedantic', '-fPIC', '-shared', '-rdynamic'] + cflags
         # cflags = ['-std=c99', '-pedantic', '-fPIC', '-shared', '-rdynamic'] + cflags
-        cflags = ['-std=c11', '-pedantic', '-fPIC', '-shared', '-rdynamic'] + cflags
+        cflags = ['--std=c++17', '-pedantic', '-fPIC', '-shared', '-rdynamic'] + cflags
         if self.linkMaths:
             cflags = cflags + ['-lm']
         if self.wError:
@@ -167,7 +167,7 @@ class CKernel(Kernel):
             cflags = ['-DREAD_ONLY_FILE_SYSTEM'] + cflags
         if self.bufferedOutput:
             cflags = ['-DBUFFERED_OUTPUT'] + cflags
-        args = ['gcc', source_filename] + cflags + ['-o', binary_filename] + ldflags
+        args = ['g++', source_filename] + cflags + ['-o', binary_filename] + ldflags
         return self.create_jupyter_subprocess(args)
 
     def _filter_magics(self, code):
@@ -231,13 +231,13 @@ class CKernel(Kernel):
             source_file.write(code)
             source_file.flush()
             with self.new_temp_file(suffix='.out') as binary_file:
-                p = self.compile_with_gcc(source_file.name, binary_file.name, magics['cflags'], magics['ldflags'])
+                p = self.compile_with_gplusplus(source_file.name, binary_file.name, magics['cflags'], magics['ldflags'])
                 while p.poll() is None:
                     p.write_contents()
                 p.write_contents()
                 if p.returncode != 0:  # Compilation failed
                     self._write_to_stderr(
-                            "[C kernel] GCC exited with code {}, the executable will not be executed".format(
+                            "[C kernel] G++ exited with code {}, the executable will not be executed".format(
                                     p.returncode))
 
                     # delete source files before exit
