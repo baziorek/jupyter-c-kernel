@@ -11,8 +11,8 @@ WORKDIR /tmp
 
 COPY ./ jupyter_c_kernel/
 
-RUN pip install --no-cache-dir -e jupyter_c_kernel/ > piplog.txt
-RUN cd jupyter_c_kernel && install_c_kernel --user > installlog.txt
+RUN pip3 install --no-cache-dir -e jupyter_cpp_kernel > piplog.txt
+RUN cd jupyter_cpp_kernel && install_c_kernel --user > installlog.txt
 
 WORKDIR /home/$NB_USER/
 
