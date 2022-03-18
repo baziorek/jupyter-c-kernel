@@ -1,4 +1,4 @@
-# C kernel for Jupyter
+# C++ kernel for Jupyter (not ready - I'm playing with its, but it is not working, WORK IN PROGRESS)
 
 This project was forked from [https://github.com/brendan-rius/jupyter-c-kernel](brendan-rius/jupyter-c-kernel) as that project seems to have been abandoned. (PR is pending)
 

@@ -88,11 +88,11 @@ class RealTimeSubprocess(subprocess.Popen):
 class CKernel(Kernel):
     implementation = 'jupyter_c_kernel'
     implementation_version = '1.0'
-    language = 'c'
-    language_version = 'C11'
+    language = 'cpp'
+    language_version = 'Cpp20'
     language_info = {'name': 'text/x-csrc',
                      'mimetype': 'text/x-csrc',
-                     'file_extension': '.c'}
+                     'file_extension': '.cpp'}
     banner = "C kernel.\n" \
              "Uses g++, compiles in C11, and creates source code files and executables in temporary folder.\n"
 
