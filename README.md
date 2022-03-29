@@ -1,29 +1,18 @@
 # C++ kernel for Jupyter (not ready - I'm playing with its, but it is not working, WORK IN PROGRESS)
 
-This project was forked from [https://github.com/brendan-rius/jupyter-c-kernel](brendan-rius/jupyter-c-kernel) as that project seems to have been abandoned. (PR is pending)
+I would like to use Jupyter for C++ programming in education (many simple programs). Unfortunately for C++ all kernels are using Cling, which is not C++, but C++-like interpreted language. For education it is really hard to use Cling. Thats why I decided that another kernel for C++ would be really usefull, but the kernel should send the program to normal C++ compiler.
 
-This project includes fixes to many issues reported in [https://github.com/brendan-rius/jupyter-c-kernel](brendan-rius/jupyter-c-kernel), as well as the following additional features:
+That's why I've forked [https://github.com/XaverKlemenschits/jupyter-c-kernel](XaverKlemenschits/jupyter-c-kernel) and I'm trying to make everything working for C++.
 
-* Option for buffered output to mimic command line behaviour (useful for teaching, default is on)
-* Command line input via `scanf` and `getchar`
-* Support for `C89`/`ANSI C` (all newer versions were already supported and still are)
+My plan is not to just replace commands from `gcc` to `g++` but for security reason to use [CoLiRu](https://code.google.com/p/coliru) and its API to get results of compilation and running of code.
 
-Following limitations compared to command line execution exist:
+# If You have time You can help me to finish the project. I'm quite busy person:).
 
-* Input is always buffered due to limitations of the jupyter interface
-* When using `-ansi` or `-std=C89`, glibc still has to support at least `C99` for the interfacing with jupyter (this should not be an issue on an OS made after 2000)
-
-## Use with Docker (recommended)
-
-* `docker pull xaverklemenschits/jupyter-c-kernel`
-* `docker run -p 8888:8888 xaverklemenschits/jupyter-c-kernel`
-* Copy the given URL containing the token, and browse to it. For instance:
-
- ```bash
- Copy/paste this URL into your browser when you connect for the first time,
- to login with a token:
-    http://localhost:8888/?token=66750c80bd0788f6ba15760aadz53beb9a9fb4cf8ac15ce8
- ```
+My plan is to:
+* handle streams `cout`, `cin`
+* support different compilers (as CoLiRu supports)
+* support for many C++ standards (as CoLiRu supports)
+* using different compiler and warning flags (e.g. `-Wall`)
 
 ## Manual installation
 
@@ -38,13 +27,15 @@ Works only on Linux and OS X. Windows is not supported yet. If you want to use t
 ### Step-by-step
 
 ```bash
-git clone https://github.com/XaverKlemenschits/jupyter-c-kernel.git
+git clone https://github.com/baziorek/jupyter-c-kernel
 cd jupyter-cpp-kernel
 pip3 install -e .  # for system install: sudo install .
 cd jupyter-cpp-kernel && install_c_kernel --user # for sys install: sudo install_c_kernel
 # now you can start the notebook
 jupyter notebook
 ```
+
+# Below is text rest from [https://github.com/XaverKlemenschits/jupyter-c-kernel](XaverKlemenschits/jupyter-c-kernel), please ignore:
 
 ## Example of notebook
 
