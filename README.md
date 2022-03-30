@@ -4,7 +4,7 @@ I would like to use Jupyter for C++ programming in education (many simple progra
 
 That's why I've forked [https://github.com/XaverKlemenschits/jupyter-c-kernel](XaverKlemenschits/jupyter-c-kernel) and I'm trying to make everything working for C++.
 
-My plan is not to just replace commands from `gcc` to `g++` but for security reason to use [CoLiRu](https://code.google.com/p/coliru) and its API to get results of compilation and running of code.
+My plan is not to just replace commands from `gcc` to `g++` but for security reason to use [CoLiRu](https://coliru.stacked-crooked.com/) and [its API](https://docs.google.com/document/d/18md3rLdgD9f5Wro3i7YYopJBFb_6MPCO8-0ihtxHoyM/edit#heading=h.3md6zepla0fj) to get results of compilation and running of code.
 
 # If You have time You can help me to finish the project. I'm quite busy person:).
 
@@ -27,7 +27,7 @@ Works only on Linux and OS X. Windows is not supported yet. If you want to use t
 ### Step-by-step
 
 ```bash
-git clone https://github.com/baziorek/jupyter-c-kernel
+git clone https://github.com/baziorek/jupyter-cpp-kernel.git
 cd jupyter-cpp-kernel
 pip3 install -e .  # for system install: sudo install .
 cd jupyter-cpp-kernel && install_c_kernel --user # for sys install: sudo install_c_kernel
